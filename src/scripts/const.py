@@ -1,0 +1,10 @@
+
+
+WIDTH = 600
+HEIGHT = 700
+
+FPS = 60
+
+PLAYER_SCALE = 100
+
+TIME  = ("49min 12sec")
