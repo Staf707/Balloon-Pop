@@ -7,4 +7,6 @@ FPS = 60
 
 PLAYER_SCALE = 100
 
-TIME  = ("49min 12sec")
+TIME  = ("1h 49min 12sec")
+
+COLORS = ["yellow", "red", "blue", "green"]
