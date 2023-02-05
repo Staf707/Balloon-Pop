@@ -22,8 +22,8 @@ class Main:
         pygame.init()
         while True:
             self.path = 'src/graphics/background/background' + str(self.bg_count) + '.png'
-            self.bg = pygame.image.load(self.path)
 
+            self.bg = pygame.image.load(self.path)
             self.screen.blit(self.bg, (0,0))
             pygame.display.set_caption("Balloon Pop")
             self.game.gameloop()
