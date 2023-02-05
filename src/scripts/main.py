@@ -15,7 +15,8 @@ class Main:
         clock = pygame.time.Clock()
         pygame.init()
         while True:
-            self.screen.blit(pygame.image.load("src/graphics/background.png"), (0,0))
+            
+            self.screen.blit(self.bg, (0,0))
             pygame.display.set_caption("Balloon Pop")
             self.game.gameloop()
             if self.can_shoot == False:
