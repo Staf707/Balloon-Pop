@@ -1,7 +1,7 @@
 from const import *
 import pygame, sys
 from game import Game
-
+pygame.font.init()
 pygame.mixer.init()
 class Main:
     def __init__(self):
@@ -17,23 +17,22 @@ class Main:
         self.song = 1 
         self.music_path = "src/graphics/music/music" + str(self.song) + ".wav"
         self.bg = pygame.image.load(self.path)
-
+        self.paused = False
     def loop(self):
 
         clock = pygame.time.Clock()
         pygame.mixer.music.load(self.music_path)
         pygame.mixer.music.play(-1, 0.0)
         pygame.init()
-        Game(self.screen).add_hearths()
         while True:
             self.path = 'src/graphics/background/background' + str(self.bg_count) + '.png'
 
             self.bg = pygame.image.load(self.path)
             self.screen.blit(self.bg, (0,0))
             pygame.display.set_caption("Balloon Pop")
-            self.game.gameloop()
+            self.game.gameloop(self.paused)
             # shoot delaying
-            if self.can_shoot == False:
+            if self.can_shoot == False and not self.paused:
 
                 self.cur_time += 0.5
                 if self.cur_time >= 15:
@@ -53,14 +52,19 @@ class Main:
                     pygame.quit()
                     sys.exit()
 
-                if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and self.can_shoot:
+                elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and self.can_shoot and not self.paused:
                     self.game.shoot()
                     
                     self.game.new_player()
                     self.can_shoot = False
-                if event.type == pygame.MOUSEBUTTONDOWN and event.button == 4:
+                elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 4:
                     self.next_song()
-                if event.type == pygame.MOUSEBUTTONDOWN and event.button == 5: self.previous_song()
+                elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 5: self.previous_song()
+
+                # check escape key
+                elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        self.paused = not self.paused
             # game loop    
 
             # update and fps      
@@ -77,7 +81,6 @@ class Main:
         self.music_path = "src/graphics/music/music" + str(self.song) + ".wav"
         pygame.mixer.music.load(self.music_path)
         pygame.mixer.music.play(-1, 0.0)
-        print(self.song)
     def previous_song(self):
         if self.song == 1:
             self.song = 7
@@ -87,7 +90,6 @@ class Main:
         self.music_path = "src/graphics/music/music" + str(self.song) + ".wav"
         pygame.mixer.music.load(self.music_path)
         pygame.mixer.music.play(-1, 0.0)
-        print(self.song)
 main = Main()
 if __name__ == "__main__":
     main.loop()

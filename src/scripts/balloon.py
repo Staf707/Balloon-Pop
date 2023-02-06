@@ -6,7 +6,7 @@ class Balloon:
     def __init__(self, surface,speed):
         self.surface = surface
         self.speed = speed
-        self.scale = 100
+        self.scale = BALLOON_SCALE
         self.frame = 1
         self.balloon_time = 0
         self.color = str(random.choice(COLORS))
@@ -20,6 +20,7 @@ class Balloon:
 
         # update balloon animation
         self.path = "src/graphics/balloons/" + self.color + "/balloon_" + self.color + str(self.frame) + ".png"       
+        self.img = pygame.transform.scale(pygame.image.load(self.path), (self.scale / 2, self.scale))
         
         self.balloon_time += 1
         if self.balloon_time >= 10:
