@@ -9,6 +9,8 @@ class Game:
     def __init__(self, surface):
         self.game_font = pygame.font.Font("src/graphics/fonts/minecraft.ttf", 50)
         self.game_font_small = pygame.font.Font("src/graphics/fonts/minecraft.ttf", 25)
+        self.back_button = pygame.image.load("src/graphics/ui/back_button.png")
+        self.play_button = pygame.image.load("src/graphics/ui/play_button.png") 
         self.surface = surface
         self.balloon_count = 4
         self.level = 1
@@ -55,6 +57,8 @@ class Game:
         self.surface.blit(pause_text, (WIDTH / 2 - pause_text.get_width() / 2,HEIGHT / 2 - pause_text.get_height() / 2))
         # draw music thing
         self.surface.blit(pygame.image.load("src/graphics/ui/box.png"), (WIDTH - 180, 20))
+        self.surface.blit(self.back_button, (WIDTH- 160, 45))
+        self.surface.blit(self.play_button, (WIDTH- 100, 45))
         # stop music
     def shoot(self):
         if not self.game_over:
