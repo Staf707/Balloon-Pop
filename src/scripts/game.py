@@ -10,7 +10,7 @@ class Game:
         self.game_font = pygame.font.Font("src/graphics/fonts/minecraft.ttf", 50)
         self.game_font_small = pygame.font.Font("src/graphics/fonts/minecraft.ttf", 25)
         self.surface = surface
-        self.balloon_count = 5
+        self.balloon_count = 4
         self.level = 1
         self.av_speed = 2
         self.players = [Player(surface)]
@@ -55,7 +55,7 @@ class Game:
         self.surface.blit(pause_text, (WIDTH / 2 - pause_text.get_width() / 2,HEIGHT / 2 - pause_text.get_height() / 2))
         # draw music thing
         self.surface.blit(pygame.image.load("src/graphics/ui/box.png"), (WIDTH - 180, 20))
-
+        # stop music
     def shoot(self):
         if not self.game_over:
             self.players[-1].speed_y = -self.players[-1].max_speed

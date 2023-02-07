@@ -12,7 +12,7 @@ class Balloon:
         self.color = str(random.choice(COLORS))
         self.path = "src/graphics/balloons/" + self.color + "/balloon_" + self.color + str(self.frame) + ".png"
         self.img = pygame.transform.scale(pygame.image.load(self.path), (self.scale / 2, self.scale))
-        self.random_y_pos = random.randint(0, HEIGHT - 200)
+        self.random_y_pos = random.randint(100, HEIGHT - 200)
         self.x_position = random.randint(-350, -300)
 
     def draw_balloon(self):

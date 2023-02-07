@@ -18,6 +18,7 @@ class Main:
         self.music_path = "src/graphics/music/music" + str(self.song) + ".wav"
         self.bg = pygame.image.load(self.path)
         self.paused = False
+        self.song_played = False
     def loop(self):
 
         clock = pygame.time.Clock()
@@ -46,7 +47,11 @@ class Main:
                     self.bg_count += 1
                 else: self.bg_count = 1
                 self.bg_cur_time = 0
-
+            if self.game.game_over and not self.song_played:
+                self.music_path = "src/graphics/music/game_over_music.wav"
+                pygame.mixer.music.load(self.music_path)
+                pygame.mixer.music.play(-1, 0.0)
+                self.song_played = True
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
@@ -57,14 +62,16 @@ class Main:
                     
                     self.game.new_player()
                     self.can_shoot = False
-                elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 4:
-                    self.next_song()
-                elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 5: self.previous_song()
+                elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 4 and not self.game.game_over: self.next_song()
+                elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 5 and not self.game.game_over: self.previous_song()
 
                 # check escape key
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
                         self.paused = not self.paused
+                        if self.paused: pygame.mixer.music.pause()
+                        else:
+                            pygame.mixer.music.unpause()
             # game loop    
 
             # update and fps      
@@ -72,7 +79,7 @@ class Main:
             pygame.display.update()
     
     def next_song(self):
-        if self.song == 7:
+        if self.song == 6:
             self.song = 0
 
 
@@ -83,7 +90,7 @@ class Main:
         pygame.mixer.music.play(-1, 0.0)
     def previous_song(self):
         if self.song == 1:
-            self.song = 7
+            self.song = 6
             
         else:
             self.song -= 1
