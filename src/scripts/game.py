@@ -11,6 +11,7 @@ class Game:
         self.game_font_small = pygame.font.Font("src/graphics/fonts/minecraft.ttf", 25)
         self.back_button = pygame.image.load("src/graphics/ui/back_button.png")
         self.play_button = pygame.image.load("src/graphics/ui/play_button.png") 
+        self.play_again_button = pygame.image.load("src/graphics/ui/play_again.png")
         self.surface = surface
         self.balloon_count = 4
         self.level = 1
@@ -51,6 +52,7 @@ class Game:
         self.check_game_over()
         self.show_level()
     
+
     def draw_paused(self):
         # draw text
         pause_text = self.game_font.render('GAME PAUSED', False, WHITE)
@@ -90,11 +92,9 @@ class Game:
         self.level += 1
         self.av_speed += 0.15
         self.balloon_count += 2
-    def add_hearths(self):
 
-        self.hearths.append(Hearth(self.surface,1))
-        self.hearths.append(Hearth(self.surface,2))
-        self.hearths.append(Hearth(self.surface,3))
+
+
     def check_game_over(self):
         
         if not self.game_over:
@@ -116,4 +116,17 @@ class Game:
             game_over_text = self.game_font.render('GAME OVER', True, WHITE)
             self.surface.blit(game_over_text, (WIDTH / 2 - game_over_text.get_width() / 2,75))
 
-            # 3. play sound
+            # 3. show play again button 
+
+            self.surface.blit(self.play_again_button, (WIDTH / 2 - self.play_again_button.get_width() / 2,HEIGHT / 2 - self.play_again_button.get_height() / 2))
+    
+    def reset_game(self):
+        # 1. clear balloon list
+        self.balloon_count = 4
+        # change level 
+        self.level = 0
+        self.av_speed = 2
+        self.balloons.clear()
+        # 2. change game status
+        self.game_over = False
+        self.lives = 3

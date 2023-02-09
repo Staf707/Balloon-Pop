@@ -24,7 +24,7 @@ class Main:
         clock = pygame.time.Clock()
         pygame.mixer.music.load(self.music_path)
         pygame.mixer.music.play(-1, 0.0)
-        pygame.mixer.music.set_volume(0.25)
+        pygame.mixer.music.set_volume(0.5)
         pygame.init()
         while True:
             self.path = 'src/graphics/background/background' + str(self.bg_count) + '.png'
@@ -68,7 +68,14 @@ class Main:
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     x, y = event.pos
                     if self.game.play_button.get_rect(topleft=(WIDTH- 160, 45)).collidepoint(x, y) and not self.game.game_over: self.previous_song()
-                    if self.game.back_button.get_rect(topleft=(WIDTH- 100, 45)).collidepoint(x, y) and not self.game.game_over: self.next_song()
+                    elif self.game.back_button.get_rect(topleft=(WIDTH- 100, 45)).collidepoint(x, y) and not self.game.game_over: self.next_song()
+                    if event.button == 1 and self.game.play_again_button.get_rect(topleft=(WIDTH / 2 - self.game.play_again_button.get_width() / 2,HEIGHT / 2 - self.game.play_again_button.get_height() / 2)).collidepoint(x, y) and self.game.game_over: 
+                        self.game.reset_game()
+                        self.music_path = "src/graphics/music/music" + str(self.song) + ".wav"
+                        self.song_played = False
+                        pygame.mixer.music.load(self.music_path)
+                        pygame.mixer.music.play(-1, 0.0)
+                        pygame.mixer.music.set_volume(0.5)
                 # check escape key
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
